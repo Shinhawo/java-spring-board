@@ -4,10 +4,25 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <%@ include file="layouts/top.jsp" %>
-
+<style>
+	.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* 화면 전체 높이에 맞게 설정 */
+	}
+	
+	.row {
+	    margin-right: 250px;
+	}
+		
+	.row.expanded {
+	    margin-right: 50px;
+	}
+</style>
     <div class="main-content">
         <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-12">
+            <div>
 				<h1>Custom Login Page</h1>
 				<h2><c:out value="${error}" /></h2>
 				<h2><c:out value="${logout}" /></h2>
@@ -20,7 +35,7 @@
 						<!-- 반드시 post 방식으로 /login 에 전송 -->
 						<form role="form" method="post" action="/login">
                             <fieldset>
-                                <img alt="카카오로그인" src="/resources/img/kakao_login_medium_narrow.png" onclick="loginWithKakao()" style="margin-bottom:10px;">
+                                <img alt="카카오로그인" src="/resources/static/img/kakao_login_medium_narrow.png" onclick="loginWithKakao()" style="margin-bottom:10px;">
                                 <div class="form-group">
                                     <input class="form-control" placeholder="userid" name="username" type="text" autofocus>
                                 </div>
@@ -48,19 +63,6 @@
 <%@ include file="layouts/bottom.jsp" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-
-
-    <!-- jQuery -->
-    <script src="/resources/vendor/jquery/jquery.min.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="/resources/vendor/bootstrap/js/bootstrap.min.js"></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="/resources/vendor/metisMenu/metisMenu.min.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="/resources/dist/js/sb-admin-2.js"></script>
     
 	<script src="https://developers.kakao.com/sdk/js/kakao.min.js" charset="utf-8"></script>
     
@@ -69,6 +71,10 @@
 	    $(document).ready(function(){
 	    	Kakao.init('c632e16ffcd30fc6203dd76a1da1ebd0');
 	        Kakao.isInitialized();
+	        
+	        $("#nav-btn").on("click", function(e) {
+		        $(".row").toggleClass("expanded");
+		    });
 	    });
 	
 	    function loginWithKakao() {
