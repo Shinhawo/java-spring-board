@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -218,22 +219,38 @@
           </li>
           <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
             <img alt="image" src="../resources/static/img/avatar/avatar-1.png" class="rounded-circle mr-1">
-            <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div></a>
+	            <sec:authorize access="isAuthenticated()">
+					<div class="d-sm-none d-lg-inline-block">Hi, ${pageContext.request.userPrincipal.name}</div></a>
+	            </sec:authorize>
+	            <sec:authorize access="isAnonymous()">
+	            	<div class="d-sm-none d-lg-inline-block">Well come!</div>
+	            </sec:authorize>
+            </a>
             <div class="dropdown-menu dropdown-menu-right">
-              <div class="dropdown-title">Logged in 5 min ago</div>
-              <a href="features-profile.html" class="dropdown-item has-icon">
-                <i class="far fa-user"></i> Profile
-              </a>
-              <a href="features-activities.html" class="dropdown-item has-icon">
-                <i class="fas fa-bolt"></i> Activities
-              </a>
-              <a href="features-settings.html" class="dropdown-item has-icon">
-                <i class="fas fa-cog"></i> Settings
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item has-icon text-danger">
-                <i class="fas fa-sign-out-alt"></i> Logout
-              </a>
+              <sec:authorize access="isAuthenticated()">
+               	<a href="/user/profile?userid=${pageContext.request.userPrincipal.name}" class="dropdown-item has-icon">
+               		<i class="far fa-user"></i> User Profile
+               	</a>
+               	<div class="dropdown-divider"></div>
+                <a href="/customLogout" class="dropdown-item has-icon text-danger">
+                	<i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+               </sec:authorize>
+               
+               <sec:authorize access="isAnonymous()">
+                 <a href="/customLogin" class="dropdown-item has-icon">
+                 	<i class="fa fa-sign-out fa-fw"></i> Login
+                 </a>
+                 <a href="/userRegister" class="dropdown-item has-icon">
+                 	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
+								<path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+								<path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5"/>
+					</svg>
+					<i class="bi bi-person-plus-fill"></i> Register
+				</a>
+              </sec:authorize>
+              
+              
             </div>
           </li>
         </ul>
@@ -253,31 +270,5 @@
 
       <!-- Main Content -->
       <div class="main-content">
-      </div>
-      <footer class="main-footer">
-        <div class="footer-left">
-          Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauv.al/">Muhamad Nauval Azhar</a>
-        </div>
-        <div class="footer-right">
-          {{ version }}
-        </div>
-      </footer>
-    </div>
-  </div>
-
-  <!-- General JS Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-  <script src="/resources/static/js/stisla.js"></script>
-
-
-  <!-- Template JS File -->
-  <script src="/resources/static/js/scripts.js"></script>
-  <script src="/resources/static/js/custom.js"></script>
-
-  <!-- Page Specific JS File -->
-</body>
-</html>
+      	
+ 

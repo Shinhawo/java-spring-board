@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%@ include file="layouts/master.jsp" %>
+<%@ include file="layouts/top.jsp" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
@@ -18,3 +18,5 @@
 
 
   <script src="../resources/static/js/page/index.js"></script>
+
+<%@ include file="layouts/bottom.jsp" %>
