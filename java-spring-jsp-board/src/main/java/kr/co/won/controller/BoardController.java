@@ -39,11 +39,7 @@ public class BoardController {
 	
 
 	
-//	@GetMapping("/list")
-//	public void list(Model model) {
-//		log.info("list");
-//		model.addAttribute("list", service.getList());
-//	}
+
 	
 	@GetMapping("/list")
 	public void list(Criteria cri, Model model) {
@@ -71,10 +67,22 @@ public class BoardController {
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 	}
 	
-	@GetMapping("/register")
-	@PreAuthorize("isAuthenticated()")
-	public void register() {
+	
+	@GetMapping({"/get", "/modify"})
+	public void get(@RequestParam("bno") Long bno, Model model, @ModelAttribute("cri")Criteria cri) {
+		log.info("/get or modify");
+		model.addAttribute("board", service.get(bno));
+	}
+	
+	
+	@GetMapping(value = "/getAttachList",
+				produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<BoardAttachVo>> getAttachList(Long bno) {
 		
+		log.info("getAttachList " + bno);
+		
+		return new ResponseEntity<>(service.getAttachList(bno),HttpStatus.OK);
 	}
 	
 

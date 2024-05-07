@@ -21,6 +21,6 @@ public interface BoardService {
 	
 	public int getTotal(Criteria cri);
 	
-	//public List<BoardAttachVo> getAttachList(Long bno);
+	public List<BoardAttachVo> getAttachList(Long bno);
 	
 }

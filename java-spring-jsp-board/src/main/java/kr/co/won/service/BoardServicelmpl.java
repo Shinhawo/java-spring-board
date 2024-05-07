@@ -4,6 +4,8 @@ import kr.co.won.domain.BoardAttachVo;
 import kr.co.won.domain.BoardVo;
 import kr.co.won.domain.Criteria;
 import kr.co.won.mapper.BoardMapper;
+import kr.co.won.mapper.BoardAttachMapper;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,8 @@ public class BoardServicelmpl implements BoardService {
 	@Setter(onMethod_ = @Autowired)
 	private BoardMapper mapper;
 
-	
+	@Setter(onMethod_ = @Autowired)
+	private BoardAttachMapper attachMapper;
 
 	
 	@Override
@@ -33,6 +36,13 @@ public class BoardServicelmpl implements BoardService {
 	}
 
 
+	@Override
+	public List<BoardAttachVo> getAttachList(Long bno) {
+		
+		log.info("get Attach list by bno " + bno);
+		
+		return attachMapper.findByBno(bno);
+	}
 	
 //	@Override
 //	public List<BoardVo> getList() {
