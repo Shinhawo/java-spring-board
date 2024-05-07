@@ -7,22 +7,8 @@
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
-<style>
-	
-	
-	.table-row {
-	    margin-left:  -200px;
-	}
-		
-	.table-row.expanded {
-	    margin-left: -10px;
-	}
-	
-</style>
-
-<div class="main-content"  >
-	<div class="table-row">
-		<div class="row">
+	<div class="table-row" >
+		<div class="row" style="margin-top: 50px;">
 		    <div class="col-lg-12">
 		        <h1 class="page-header">Tables</h1>
 		    </div>
@@ -167,9 +153,6 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		
-		$("#nav-btn").on("click", function(e) {
-	        $(".table-row").toggleClass("expanded");
-	    });
 		
 		// addFlashAttribute()를 통해 일회성으로만 데이터를 사용할 수 있음을 보여주는 예시
 		var result = '<c:out value="${result}"/>'
