@@ -336,7 +336,7 @@
 					} else {
 						str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"'><div>";
 						str += "<span>"+attach.fileName+"</span><br/>";
-						str += "<img src='/resources/img/attach.png'>";
+						str += "<img src='/resources/static/img/attach.png'>";
 						str += "</div>";
 						str += "</li>";
 					}

@@ -86,6 +86,30 @@ public class BoardController {
 	}
 	
 
+	@GetMapping("/register")
+	@PreAuthorize("isAuthenticated()")
+	public void register() {
+		
+	}
 	
+	@PostMapping("/register")
+	@PreAuthorize("isAuthenticated()")
+	public String register(BoardVo board, RedirectAttributes rttr) {
+		
+		log.info("register: " + board);
+		
+		if(board.getAttachList() != null) {
+			
+			board.getAttachList().forEach(attach -> log.info(attach));
+		}
+		
+		log.info("===============================");
+		
+		service.register(board); // insertSelectKey()
+		
+		rttr.addFlashAttribute("result", board.getBno());
+		
+		return "redirect:/board/list";
+	}
 
 }

@@ -65,6 +65,23 @@ public class BoardServicelmpl implements BoardService {
 		return mapper.getTotalCount(cri);
 	}
 	
+	@Transactional
+	@Override
+	public void register(BoardVo board) {
+		
+		log.info("register......." + board);
+		
+		mapper.insertSelectKey(board);
+		
+		if(board.getAttachList() == null || board.getAttachList().size() <= 0) {
+			return;
+		}
+		
+		board.getAttachList().forEach(attach -> {
+			attach.setBno(board.getBno());
+			attachMapper.insert(attach);
+		});
+	}
 	
 	
 }

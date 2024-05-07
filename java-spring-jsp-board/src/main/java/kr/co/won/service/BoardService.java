@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface BoardService {
 
-	//public void register(BoardVo board);
+	public void register(BoardVo board);
 	
 	public BoardVo get(Long bno);
 	

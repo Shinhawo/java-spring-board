@@ -137,8 +137,9 @@
 	                        <div class="modal-dialog">
 	                            <div class="modal-content">
 	                                <div class="modal-header">
-	                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	                                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+	                                    <h4 class="modal-title" id="myModalLabel">
+	                                    
+	                                    </h4>
 	                                </div>
 	                                <div class="modal-body">
 										처리가 완료되었습니다.
@@ -184,10 +185,12 @@
 			}
 			
 			if (result === 'success' || history.state ){
+				$(".modal-title").html("게시글 삭제 완료")
 				$(".modal-body").html("게시글이 삭제되었습니다.");
 			}
 			
 			if (parseInt(result) > 0) {
+				$(".modal-title").html("게시글 등록 완료")
 				$(".modal-body").html("게시글 " + parseInt(result) + "번이 등록되었습니다.");
 			}
 			$("#myModal").modal("show");
