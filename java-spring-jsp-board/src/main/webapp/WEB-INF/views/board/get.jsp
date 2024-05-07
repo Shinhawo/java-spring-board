@@ -43,7 +43,7 @@
       </div>
 <!-- /.modal -->
 
-<script type="text/javascript" src="/resources/js/reply.js"></script>	
+<script type="text/javascript" src="../resources/static/js/reply.js"></script>	
 	
 <script type="text/javascript">
 	$(document).ready(function(){

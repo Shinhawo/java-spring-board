@@ -7,6 +7,9 @@
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
+<style>
+
+</style>
 	<div class="table-row" >
 		<div class="row" style="margin-top: 50px;">
 		    <div class="col-lg-12">
@@ -47,10 +50,10 @@
 			            </div>
 		        	</div>
 		            <!-- /.panel-heading -->
-		            <div class="panel-body">
-		                <table width="100%" class="table table-striped table-bordered table-hover">
-		                    <thead>
-		                        <tr>
+		            <div class="panel-body" >
+		                <table width="100%"  class="table table-striped table-bordered table-hover" >
+		                    <thead style="background-color: #f2f2f2;">
+		                        <tr >
 		                            <th>#번호</th>
 		                            <th>제목</th>
 		                            <th>작성자</th>
@@ -60,7 +63,7 @@
 		                    </thead>
 		                    
 		                    <c:forEach items="${list}" var="board">
-		                    	<tr>
+		                    	<tr >
 			                    	<td><c:out value="${board.bno} "/></td>
 			                    	<!-- 
 			                    	 <td><a href='/board/get?bno=<c:out value="${board.bno} "/>'><c:out value="${board.title} "/></a></td>
