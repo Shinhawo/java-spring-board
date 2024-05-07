@@ -5,23 +5,15 @@
 
 <%@ include file="layouts/top.jsp" %>
 <style>
-	.main-content {
+	#main-content {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh; /* 화면 전체 높이에 맞게 설정 */
 	}
 	
-	.row {
-	    margin-right: 250px;
-	}
-		
-	.row.expanded {
-	    margin-right: 50px;
-	}
 </style>
-    <div class="main-content">
-        <div class="row">
+        <div class="row" id="main-content" >
             <div>
 				<h1>Custom Login Page</h1>
 				<h2><c:out value="${error}" /></h2>
@@ -58,7 +50,6 @@
                 </div>
             </div>
         </div>
-    </div>
     
 <%@ include file="layouts/bottom.jsp" %>
 
@@ -72,9 +63,6 @@
 	    	Kakao.init('c632e16ffcd30fc6203dd76a1da1ebd0');
 	        Kakao.isInitialized();
 	        
-	        $("#nav-btn").on("click", function(e) {
-		        $(".row").toggleClass("expanded");
-		    });
 	    });
 	
 	    function loginWithKakao() {

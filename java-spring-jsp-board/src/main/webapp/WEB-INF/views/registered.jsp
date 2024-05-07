@@ -8,7 +8,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <style>
-	.main-content {
+	#main-content {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,18 +24,9 @@
 	    flex-direction: column; 
 	}
 	
-	.login-panel {
-	    margin-right: 250px;
-	}
-		
-	.login-panel.expanded {
-	    margin-right: 50px;
-	}
-	
 </style>
 
-     <div class="main-content"  >
-        <div class="row">
+     <div class="row"  id="main-content">
             <div>
                 <div class=" panel panel-default login-panel" >
                     <div class="panel-heading">
@@ -53,20 +44,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-
-    <script type="text/javascript">
-    
-    $(document).ready(function() {
-
-    	$("#nav-btn").on("click", function(e) {
-	        $(".login-panel").toggleClass("expanded");
-	    });
-    
-    });
-
-    </script>
     
   	<script src="../resources/static/js/page/index.js"></script>
 

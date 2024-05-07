@@ -7,31 +7,48 @@
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
+<style>
 
-  	<div class="main-content">
-        <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-12">
-				<div class="col-md-4 col-md-offset-4">
-					<div class="login-panel panel panel-default">
-						<div class="panel-heading">
-							<h3 class="panel-title">Logout Page</h3>
-						</div>
-						<div class="panel-body">
-							<form role="form" method='post' action="/customLogout">
-								<fieldset>
-								
-								<!-- Change this to a button or input when using this as a form -->
-									<a class="btn btn-lg btn-success btn-block">Logout</a>
-								</fieldset>
-								<input type="hidden" name="${_csrf.parameterName}"
-									   value="${_csrf.token}" />
-							</form>
-						</div>
+#main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* 화면 전체 높이 만큼 컨테이너를 사용 */
+}
+
+.panel-heading,
+	.panel-body {
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    text-align: center;
+	    flex-direction: column; 
+	    width: 200px;
+	}
+</style>
+
+<div class="row" style="margin-left: 150px;" id="main-content" >
+    <div class="col-lg-4 col-md-4 col-sm-12">
+	   <div class="col-md-4 col-md-offset-4">
+				<div class="login-panel panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Logout Page</h3>
 					</div>
+					<div class="panel-body">
+						<form role="form" method='post' action="/customLogout">
+							<fieldset>
+							
+							<!-- Change this to a button or input when using this as a form -->
+				<a class="btn btn-lg btn-success btn-block">Logout</a>
+			</fieldset>
+			<input type="hidden" name="${_csrf.parameterName}"
+				   value="${_csrf.token}" />
+					</form>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 
 <%@ include file="layouts/bottom.jsp" %>
 
@@ -47,18 +64,17 @@
 	<!-- Custom Theme JavaScript -->
 	<script src="/resources/dist/js/sb-admin-2.js"></script>
 	
-	<script type="text/javascript">
+		<script>
 	
-		$(".btn-success").on("click", function(e){
-			
-			e.preventDefault();
-			$("form").submit();
-			
-		});
+	$(".btn-success").on("click", function(e){
+		
+		e.preventDefault();
+		$("form").submit();
+		
+	});
 	
 	</script>
 
-
   <script src="../resources/static/js/page/index.js"></script>
-=
+
 

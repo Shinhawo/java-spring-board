@@ -10,9 +10,7 @@
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
-
-     <div class="main-content">
-        <div class="row">
+        <div class="row" style="margin-top: 50px;">
            <div class="col-lg-12">
 				<div class="panel panel-default" >
 					<div class="panel-heading">
@@ -74,11 +72,8 @@
 				</div><!-- /.end panel-body -->
 			</div><!-- /.end panel -->
         </div>
-    </div>
-    
+        
 <script type="text/javascript">
-	
-	
 	
 	const $name = $("form input[name ='userName']");
 	const $id = $("form input[name ='userid']");
