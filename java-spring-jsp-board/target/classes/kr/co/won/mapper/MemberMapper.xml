@@ -18,6 +18,26 @@
 		<result property="auth" column="auth"/>
 	</resultMap>
 	
+	<sql id="criteria">
+		<trim prefix="(" suffix=") AND " prefixOverrides="OR" >
+				<foreach item="type" collection="cri.typeArr">
+					<trim prefix="OR">
+						<choose>
+							<when test="type == 'T'.toString()">
+								title like '%'||#{cri.keyword}||'%'
+							</when>
+							<when test="type == 'C'.toString()">
+								content like '%'||#{cri.keyword}||'%'
+							</when>
+							<when test="type == 'W'.toString()">
+								writer like '%'||#{cri.keyword}||'%'
+							</when>
+						</choose>
+					</trim>
+				</foreach>
+		</trim>
+	</sql>
+	
 	<select id="read" resultMap="memberMap">
 		SELECT
 			mem.userid, userpw, username, enabled, regdate, updatedate, auth
@@ -71,5 +91,46 @@
     	where
     		userid = #{userid}
     </update>
+
+	<select id="getUserPost" resultType="kr.co.won.domain.BoardVo">
+		<![CDATA[
+			 select 
+			 	bno, title, content, writer, regdate, updateDate, replyCnt
+			 from 
+			 	(
+			 	select /*+INDEX_DESC(tbl_board pk_board) */
+			 		rownum rn, bno, title, content, writer, regdate, updateDate, replyCnt
+			 	from 
+			 		tbl_board
+			 	where 
+			]]>
+			<include refid="criteria"></include>
+			<![CDATA[
+				writer = #{userid}
+				and rownum <= #{cri.pageNum} * #{cri.amount}
+			 	)
+			 where rn > (#{cri.pageNum} - 1) * #{cri.amount}
+			]]>
+	</select>
 	
+	<select id="getTotalCount" resultType="int">
+			select count(*) from tbl_board where 
+			<include refid="criteria"></include>
+			bno > 0
+			and writer = #{userid}
+	</select> 
+	
+	<select id="getUserReply" resultType="kr.co.won.domain.ReplyVo">
+		<![CDATA[
+			select rno, bno, reply, replyer, replyDate, updateDate
+			from (
+				select /*+INDEX(tbl_reply idx_reply) */
+					rownum rn, rno, bno, reply, replyer, replyDate, updateDate
+				from tbl_reply
+				where replyer = #{userid}
+				and rno > 0
+				and rownum <= #{cri.pageNum} * #{cri.amount}
+			) where rn > (#{cri.pageNum} - 1) * #{cri.amount}
+		]]>
+	</select>
 </mapper>

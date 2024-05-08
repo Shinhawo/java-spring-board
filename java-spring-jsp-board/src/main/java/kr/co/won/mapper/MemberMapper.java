@@ -1,8 +1,14 @@
 package kr.co.won.mapper;
 
 import kr.co.won.domain.AuthVo;
+import kr.co.won.domain.BoardVo;
+import kr.co.won.domain.Criteria;
 import kr.co.won.domain.MemberVo;
+import kr.co.won.domain.ReplyVo;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 public interface MemberMapper {
@@ -28,4 +34,10 @@ public interface MemberMapper {
     String findUserIdBySnsId(String snsId);
 	
 	void kakaoInsert(MemberVo member);
+	
+	int getTotalCount(@Param("cri") Criteria cri, @Param("userid") String userid);
+	List<BoardVo> getUserPost(@Param("cri") Criteria cri, @Param("userid") String userid);
+
+	public List<ReplyVo> getUserReply(String userid);
+	
 }

@@ -305,8 +305,17 @@
 		
 		$("button[data-oper='list']").on("click", function(e){
 			
+			var referrer = document.referrer; // 이전 페이지 URL 가져오기 
+			var action = "";
+			
+		    if (referrer.includes("user/mypost")) {
+		        action = "/user/mypost"
+		    } else {
+		        action = "/board/list";
+		    }
+			
 			operForm.find("#bno").remove();
-			operForm.attr("action", "/board/list");
+			operForm.attr("action", action);
 			operForm.submit();
 		});
 		
@@ -468,15 +477,7 @@
 							<label>Writer</label>
 							<input class="form-control" name='writer' value="<c:out value='${board.writer} '/>" readonly="readonly">
 						</div>
-						<!-- 
-						<button data-oper="modify" 
-								class="btn btn-defult"
-								onclick="location.href='/board/modify?bno=<c:out value="${board.bno}"/>' ">Modify</button>						
-						<button data-oper="list" 
-								class="btn btn-defult"
-								onclick="location.href='/board/list' ">List</button>		
-										
-						 -->
+						
 						<sec:authentication property="principal" var="pinfo"/>
 						<sec:authorize access="isAuthenticated()">
 							<c:if test="${pinfo.username eq board.writer }">
@@ -492,6 +493,9 @@
 							<input type="hidden" id="amount" name="amount" value='<c:out value="${cri.amount}"/>'/>
 							<input type="hidden" id="type" name="type" value='<c:out value="${cri.type}"/>'/>
 							<input type="hidden" id="keyword" name="keyword" value='<c:out value="${cri.keyword}"/>'/>
+							<sec:authorize access="isAuthenticated()">
+								<input type="hidden" name="userid" value="${pageContext.request.userPrincipal.name}" />
+							</sec:authorize>
 						</form>
 					
 						<!-- Modal 추가 -->

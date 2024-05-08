@@ -1,9 +1,14 @@
 package kr.co.won.service;
 
 import kr.co.won.domain.AuthVo;
+import kr.co.won.domain.BoardVo;
+import kr.co.won.domain.Criteria;
 import kr.co.won.domain.MemberUpdateForm;
 import kr.co.won.domain.MemberVo;
+import kr.co.won.domain.ReplyVo;
 import kr.co.won.mapper.MemberMapper;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -81,5 +86,21 @@ public class UserServiceImpl implements UserService{
 	public MemberVo kakapLogin(String snsId) {
 		log.info("snsId : " + snsId);
 		return mapper.kakaoSelect(snsId);
+	}
+	
+	@Override
+	public int getTotal(Criteria cri, String userid) {
+		return mapper.getTotalCount(cri, userid);
+	}
+
+	@Override
+	public List<BoardVo> getUserPost(Criteria cri,String userid) {
+		
+		return mapper.getUserPost(cri, userid);
+	}
+	
+	@Override
+	public List<ReplyVo> getUserReply(String userid) {
+		return mapper.getUserReply(userid);
 	}
 }
