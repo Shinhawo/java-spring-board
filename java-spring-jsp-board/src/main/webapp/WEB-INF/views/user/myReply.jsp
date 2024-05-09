@@ -11,9 +11,9 @@
 
 </style>
 	<div class="table-row" >
-		<div class="row" style="margin-top: 50px;">
+		<div class="row" style="margin-top: 50px; margin-bottom: 10px;">
 		    <div class="col-lg-12">
-		        <h1 class="page-header">My Reply</h1>
+		        <h1 class="page-header d-flex justify-content-center ">My Reply</h1>
 		    </div>
 		    <!-- /.col-lg-12 -->
 		</div>
@@ -21,36 +21,50 @@
 		<div class="row">
 		    <div class="col-lg-12">
 		        <div class="panel panel-default ">
-		        	<div class="table-header d-flex justify-content-between" style="margin-bottom: 10px; margin-top: 10px;">
-			            
-			            <div class="panel-heading"> my reply
-			            </div>
-		        	</div>
+		        	
 		            <!-- /.panel-heading -->
-		            <div class="panel-body" >
+		            <div class="d-flex justify-content-between">
+			            <div class="d-flex justify-content-start">
+			            	<p style="margin-right: 5px;">전체선택</p>
+			            	<input type="checkbox" name="allDelete" style="margin-top:-17px; ">
+			            </div>
+			            <div >
+			            	<button type="submit"
+										data-oper="remove" 
+										class="btn btn-light"
+										style="margin-top:-5px;">삭제</button>	
+			            </div>
+		            </div>
+		            <div class="panel-body" style="margin-top:-10px;">
 		                <table width="100%"  class="table table-striped table-bordered table-hover" >
 		                    <thead style="background-color: #f2f2f2;">
 		                        <tr >
-		                            <th>#번호</th>
-		                            <th>제목</th>
-		                            <th>작성자</th>
-		                            <th>댓글 내용</th>
-		                            <th>작성일</th>
+		                            <th class="d-flex justify-content-center align-items-center"><h5>reply</h5></th>
 		                        </tr>
 		                    </thead>
 		                    
 		                    <c:forEach items="${replyList}" var="reply">
 		                    	<tr >
-			                    	<td><c:out value="${reply.bno}"/></td>
-			                    	<td>
-			                    		<a class="move" href='<c:out value="${reply.bno}" />'>
-			                    			<c:out value="${reply.board.title}"/> 
-			                    			
-			                    		</a>
+			                    	<td style="padding-top:15px; padding-bottom:15px; border-bottom: 1px solid black; border-bottom-color: #DCDCDC;">
+										<div class="d-flex justify-content-start">
+											<div class="checkbox" style="padding-right: 10px;">
+												<input type="checkbox" name="deleteCheck"/> 
+											</div>
+											<div class="replyInfo">
+												<div>
+													<strong class="primary-font"><c:out value="${reply.reply} "/></strong>
+												</div>
+												<div>
+													<small class="pull-right text-muted"><fmt:formatDate pattern="yyyy-MM-dd" value="${reply.updateDate}"/></small>
+												</div>
+												<div>
+													<a class="move" href='<c:out value="${reply.bno}" />'>
+				                    					<c:out value="${reply.board.title}"/> 
+				                    				</a> <c:out value="${reply.board.writer} "/>
+				                    			</div>									
+											</div>
+										</div>
 			                    	</td>
-		    	                	<td><c:out value="${reply.replyer} "/></td>
-		    	                	<td><c:out value="${reply.reply} "/></td>
-		                    		<td><fmt:formatDate pattern="yyyy-MM-dd" value="${reply.updateDate}"/></td>
 		                    	</tr>
 		                    </c:forEach>
 		                </table>
@@ -128,6 +142,12 @@
 </div>
 <script type="text/javascript">
 	$(document).ready(function(){
+		
+		 $('[name="allDelete"]').change(function(){
+	            var isChecked = $(this).is(':checked');
+	            // 모든 개별 삭제 체크박스 상태 변경
+	            $('[name="deleteCheck"]').prop('checked', isChecked);
+	        });
 		
 		
 		// addFlashAttribute()를 통해 일회성으로만 데이터를 사용할 수 있음을 보여주는 예시
