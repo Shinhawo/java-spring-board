@@ -157,11 +157,15 @@
 		var modalRemoveBtn = $("#modalRemoveBtn");
 		var modalRegisterBtn = $("#modalRegisterBtn");
 		
-		var replyer = null;
+		var breplyer = null;
 		
 		<sec:authorize access="isAuthenticated()" > 
-			replyer = '<sec:authentication property="principal.username"/>'
+			breplyer = '<sec:authentication property="principal.username"/>'
 		</sec:authorize>
+			
+		var replyer = breplyer
+		.replace(/&#64;/g, '@')
+        .replace(/&#46;/g, '.');
 		
 		var csrfHeaderName = "${_csrf.headerName}";
 		var csrfTokenValue = "${_csrf.token}";	
@@ -185,9 +189,13 @@
 		
 		modalRegisterBtn.on("click", function(e){
 			
+			var originalReplyer = modalInputReplyer.val()
+            .replace(/&#64;/g, '@')
+            .replace(/&#46;/g, '.');
+			
 			var reply = {
 					reply : modalInputReply.val(),
-					replyer : modalInputReplyer.val(),
+					replyer : originalReplyer,
 					bno : bnoValue
 			};
 			
@@ -204,10 +212,20 @@
 		$(".chat").on("click", "li", function(e){
 			
 			var rno = $(this).data("rno");
+			var originalReplyer = modalInputReplyer.val()
+            .replace(/&#64;/g, '@')
+            .replace(/&#46;/g, '.');
+			console.log(originalReplyer);
 			
 			replyService.get(rno, function(reply){
+				
+				var replyer = reply.replyer;
+				var fixedReplyer = replyer
+								.replace(/&#64;/g, '@')
+	            				.replace(/&#46;/g, '.');
+				
 				modalInputReply.val(reply.reply);
-				modalInputReplyer.val(reply.replyer).attr("readonly", "readonly");
+				modalInputReplyer.val(fixedReplyer).attr("readonly", "readonly");
 				modalInputReplyDate.val(replyService.displayTime( reply.replyDate)).attr("readonly", "readonly");
 				modal.data("rno", reply.rno);
 				
@@ -221,7 +239,9 @@
 		
 		modalModBtn.on("click", function(e){
 			
-			var originalReplyer = modalInputReplyer.val();
+			var originalReplyer = modalInputReplyer.val()
+            .replace(/&#64;/g, '@')
+            .replace(/&#46;/g, '.');
 			
 			var reply = {
 					rno : modal.data("rno"),
@@ -229,6 +249,9 @@
 					replyer : originalReplyer
 			};
 			
+			console.log("or : " + originalReplyer);
+			console.log("r : " + replyer);
+
 			if(!replyer){
 				alert("로그인후 수정이 가능합니다.")
 				modal.modal("hide");
@@ -253,7 +276,9 @@
 		modalRemoveBtn.on("click", function(e){
 			
 			var rno = modal.data("rno");
-			var originalReplyer = modalInputReplyer.val();
+			var originalReplyer = modalInputReplyer.val()
+            .replace(/&#64;/g, '@')
+            .replace(/&#46;/g, '.');
 			
 			if(!replyer){
 				alert("로그인후 삭제가 가능합니다.")

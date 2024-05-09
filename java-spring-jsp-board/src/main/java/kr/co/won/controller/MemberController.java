@@ -58,20 +58,7 @@ public class MemberController {
 		
 		log.info("list: " + cri);
 		
-		InetAddress local = null;
-		try {
-			local = InetAddress.getLocalHost();
-		}
-		catch ( UnknownHostException e ) {
-			e.printStackTrace();
-		}
-			
-		if( local == null ) {
-		}
-		else {
-			String ip = local.getHostAddress();
-			log.info("ip ::" +ip);
-		}
+
 		
 		int total = userService.getTotal(cri, userid);
 		log.info("total: " + total);

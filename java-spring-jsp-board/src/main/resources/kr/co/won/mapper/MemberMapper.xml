@@ -122,13 +122,15 @@
 	
 	<select id="getUserReply" resultType="kr.co.won.domain.ReplyVo">
 		<![CDATA[
-			select rno, bno, reply, replyer, replyDate, updateDate
+			rno, bno, reply, replyer, replyDate, updateDate, title, writer, regdate
 			from (
 				select /*+INDEX(tbl_reply idx_reply) */
-					rownum rn, rno, bno, reply, replyer, replyDate, updateDate
-				from tbl_reply
+					rownum rn, R.rno, R.bno, R.reply, R.replyer, R.replyDate, R.updateDate,
+                    B.title, B.writer, B.regdate
+				from tbl_reply R, tbl_board B
 				where replyer = #{userid}
-				and rno > 0
+				and R.bno = B.bno
+				and R.rno > 0
 				and rownum <= #{cri.pageNum} * #{cri.amount}
 			) where rn > (#{cri.pageNum} - 1) * #{cri.amount}
 		]]>
