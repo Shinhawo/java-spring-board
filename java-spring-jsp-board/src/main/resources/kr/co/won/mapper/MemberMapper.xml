@@ -122,7 +122,7 @@
 	
 	<select id="getUserReply" resultType="kr.co.won.domain.ReplyVo">
 		<![CDATA[
-			rno, bno, reply, replyer, replyDate, updateDate, title, writer, regdate
+			select rno, bno, reply, replyer, replyDate, updateDate, title as "board.title", writer as "board.writer", regdate as "board.regdate"
 			from (
 				select /*+INDEX(tbl_reply idx_reply) */
 					rownum rn, R.rno, R.bno, R.reply, R.replyer, R.replyDate, R.updateDate,
@@ -134,5 +134,11 @@
 				and rownum <= #{cri.pageNum} * #{cri.amount}
 			) where rn > (#{cri.pageNum} - 1) * #{cri.amount}
 		]]>
+	</select>
+	
+	<select id="getRTotalCount" resultType="int">
+		select count(*) 
+		from tbl_reply 
+		where replyer = #{userid}
 	</select>
 </mapper>

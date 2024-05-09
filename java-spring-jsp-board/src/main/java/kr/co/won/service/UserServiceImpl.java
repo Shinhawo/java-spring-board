@@ -94,13 +94,18 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
+	public int getRTotal(String userid) {
+		return mapper.getRTotalCount(userid);
+	}
+
+	@Override
 	public List<BoardVo> getUserPost(Criteria cri,String userid) {
 		
 		return mapper.getUserPost(cri, userid);
 	}
 	
 	@Override
-	public List<ReplyVo> getUserReply(String userid) {
-		return mapper.getUserReply(userid);
+	public List<ReplyVo> getUserReply(Criteria cri, String userid) {
+		return mapper.getUserReply(cri, userid);
 	}
 }

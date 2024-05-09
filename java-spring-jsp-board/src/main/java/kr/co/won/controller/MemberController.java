@@ -1,17 +1,23 @@
 package kr.co.won.controller;
 
+import kr.co.won.domain.BoardVo;
 import kr.co.won.domain.Criteria;
 import kr.co.won.domain.MemberUpdateForm;
 import kr.co.won.domain.PageDTO;
+import kr.co.won.domain.ReplyVo;
 import kr.co.won.service.UserService;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.List;
 
+import org.apache.log4j.spi.LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -58,13 +64,25 @@ public class MemberController {
 		
 		log.info("list: " + cri);
 		
-
-		
 		int total = userService.getTotal(cri, userid);
 		log.info("total: " + total);
 		
 		log.info("/mypost?userid=" + userid);
 		model.addAttribute("list", userService.getUserPost(cri, userid));
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
+	}
+	
+	@PreAuthorize("isAuthenticated() ")
+	@GetMapping("/myReply")
+	public void myReply(Criteria cri, @RequestParam("userid")String userid, Model model) {
+		
+		int total = userService.getRTotal(userid);
+		
+		List<ReplyVo> reply = userService.getUserReply(cri, userid);
+		
+		System.out.println("Model Data: " + reply);
+		
+		model.addAttribute("replyList", userService.getUserReply(cri, userid));
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 	}
 }

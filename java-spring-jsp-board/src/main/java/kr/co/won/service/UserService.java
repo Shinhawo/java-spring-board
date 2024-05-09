@@ -29,7 +29,9 @@ public interface UserService {
 	
 	public List<BoardVo> getUserPost(Criteria cri,String userid);
 	
-	public List<ReplyVo> getUserReply(String userid);
+	public List<ReplyVo> getUserReply(Criteria cri,String userid);
 	
 	public int getTotal(Criteria cri, String userid);
+
+	public int getRTotal(String userid);
 }

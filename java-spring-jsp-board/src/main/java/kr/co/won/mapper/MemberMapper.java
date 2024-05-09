@@ -38,6 +38,8 @@ public interface MemberMapper {
 	int getTotalCount(@Param("cri") Criteria cri, @Param("userid") String userid);
 	List<BoardVo> getUserPost(@Param("cri") Criteria cri, @Param("userid") String userid);
 
-	public List<ReplyVo> getUserReply(String userid);
+	public List<ReplyVo> getUserReply(@Param("cri") Criteria cri, @Param("userid") String userid);
+	
+	int getRTotalCount(@Param("userid") String userid);
 	
 }
